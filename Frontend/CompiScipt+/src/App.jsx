@@ -1,9 +1,27 @@
 import { Menu, MenuButton, MenuList, MenuItem, MenuDivider, Card } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import { Textarea } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import Editor, { DiffEditor, useMonaco, loader } from '@monaco-editor/react';
+import { Flex, Spacer } from '@chakra-ui/react'
+
 
 import "./App.css";
 
+
 function App() {
+
+  let [consola, setConsola] = useState("")
+  let [editor, setEditor] = useState("")
+
+  let handleConsolaChange = (e) => {
+    setConsola(e.target.value)
+  }
+
+  let handleEditorChange = (e) => {
+    setEditor(e.target.value)
+  }
+
   return (
 <>
 <Card>
@@ -94,6 +112,23 @@ bg={"gray.600"}
 
 
 </Card>
+
+
+<Flex gap={2} p={5}>
+        <Editor
+          height="90vh"
+          value={editor}
+          onChange={handleEditorChange}
+        ></Editor>
+        <Textarea
+          isReadOnly
+          size='sm'
+          value={consola}
+          onChange={handleConsolaChange}
+          placeholder="Consola..."
+          rows={50}
+        />
+      </Flex>
 
 </Card>
 </>
